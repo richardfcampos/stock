@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import StockDataInterface, { TimeSeries } from "../../interfaces/StockDataInterface";
