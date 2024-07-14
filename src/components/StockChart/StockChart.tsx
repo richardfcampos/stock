@@ -1,18 +1,20 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import StockDataInterface, { TimeSeries } from "../../interfaces/StockDataInterface";
+import Element = JSX.Element;
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface StockChartProps {
-    data: any;
+    data: StockDataInterface | null;
 }
 
-const StockChart: React.FC<StockChartProps> = ({ data }) => {
+const StockChart: React.FC<StockChartProps> = ({ data }): null | Element  => {
     if (!data) return null;
 
-    const timeSeries = data['Time Series (Daily)'];
-    const dates = Object.keys(timeSeries).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    const timeSeries: TimeSeries = data['Time Series (Daily)'];
+    const dates: string[] = Object.keys(timeSeries).sort((a: string, b: string) => new Date(a).getTime() - new Date(b).getTime());
 
     const chartData = {
         labels: dates,

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Papa from 'papaparse';
+import SymbolsList from '../interfaces/SymbolsList';
+import StockDataInterface, { StockDataErrorInterface } from "../interfaces/StockDataInterface";
 
 const API_KEY = process.env.REACT_APP_API_KEY || '';
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -15,10 +17,11 @@ const saveToCache = (key: string, data: any) => {
     localStorage.setItem(localStorageKeyPrefix + key, JSON.stringify(data));
 };
 
-const getStockData = async (symbol: string) => {
+const getStockData = async (symbol: string): Promise<StockDataInterface | StockDataErrorInterface> => {
     const cacheKey = `stockData_${symbol}`;
     const cachedData = getFromCache(cacheKey);
     if (cachedData) {
+        console.log(cachedData, 'aaaaa')
         return cachedData;
     }
 
@@ -39,11 +42,12 @@ const getStockData = async (symbol: string) => {
 };
 
 interface ParsedResults {
-    data: any;
+    data: SymbolsList[];
 }
 
-const fetchListingStatus = async () => {
+const fetchListingStatus = async (): Promise<SymbolsList[]> => {
     const cacheKey = 'listingStatus';
+
     const cachedData = getFromCache(cacheKey);
     if (cachedData) {
         return cachedData;
@@ -58,7 +62,7 @@ const fetchListingStatus = async () => {
             responseType: 'blob', // important to get CSV data correctly
         });
 
-        const data = await new Promise<any>((resolve, reject) => {
+        const data = await new Promise<SymbolsList[]>((resolve, reject) => {
             Papa.parse(response.data, {
                 header: true,
                 complete: (results: ParsedResults) => resolve(results.data),
