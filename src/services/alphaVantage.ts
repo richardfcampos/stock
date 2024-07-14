@@ -21,7 +21,6 @@ const getStockData = async (symbol: string): Promise<StockDataInterface | StockD
     const cacheKey = `stockData_${symbol}`;
     const cachedData = getFromCache(cacheKey);
     if (cachedData) {
-        console.log(cachedData, 'aaaaa')
         return cachedData;
     }
 
