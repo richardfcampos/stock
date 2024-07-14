@@ -8,8 +8,9 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 const localStorageKeyPrefix = 'alphaVantage_';
 
+//cache created, we only have 15 api calls per day, this helps to not run out of data fast and helps performance
 const getFromCache = (key: string) => {
-    const cachedData = localStorage.getItem(localStorageKeyPrefix + key);
+    const cachedData: string | null = localStorage.getItem(localStorageKeyPrefix + key);
     return cachedData ? JSON.parse(cachedData) : null;
 };
 
