@@ -1,5 +1,5 @@
 import React from 'react';
-import WindowedSelect, { components } from 'react-windowed-select';
+import WindowedSelect from 'react-windowed-select';
 
 interface OptionType {
     value: string;
