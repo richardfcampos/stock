@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import StockDataInterface, { TimeSeries } from "../../interfaces/StockDataInterface";
-import Element = JSX.Element;
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -10,7 +9,7 @@ interface StockChartProps {
     data: StockDataInterface | null;
 }
 
-const StockChart: React.FC<StockChartProps> = ({ data }): null | Element  => {
+const StockChart: React.FC<StockChartProps> = ({ data })  => {
     if (!data) return null;
 
     const timeSeries: TimeSeries = data['Time Series (Daily)'];
